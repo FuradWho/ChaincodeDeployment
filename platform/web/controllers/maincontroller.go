@@ -1,9 +1,14 @@
 package controllers
 
 import (
+	"github.com/FuradWho/ChaincodeDeployment/platform/models"
+	"github.com/FuradWho/ChaincodeDeployment/platform/web/services"
 	"github.com/iris-contrib/swagger/v12"
 	"github.com/iris-contrib/swagger/v12/swaggerFiles"
 	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/mvc"
+
+	log "github.com/sirupsen/logrus"
 
 	_ "github.com/FuradWho/ChaincodeDeployment/platform/docs"
 )
@@ -31,8 +36,8 @@ func StartIris() {
 	}
 
 	app.Get("/swagger/{any:path}", swagger.CustomWrapHandler(config, swaggerFiles.Handler))
-
-	app.Listen(":9089")
+	mvc.Configure(app.Party("/edu"), edu)
+	app.Listen(":9099")
 
 }
 
@@ -47,4 +52,23 @@ func Cors(ctx iris.Context) {
 		return
 	}
 	ctx.Next()
+}
+
+func edu(app *mvc.Application) {
+	fabricClient := new(models.FabricClient)
+
+	err := fabricClient.Init()
+	if err != nil {
+		log.Errorln(err)
+		return
+	}
+
+	serviceSetup := services.ServiceSetup{
+		ChaincodeID: "chsi_0",
+		Client:      fabricClient.ChannelClient,
+	}
+
+	app.Register(serviceSetup)
+	app.Handle(new(EduController))
+
 }

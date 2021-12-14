@@ -148,32 +148,32 @@ type InstallCCInfo struct {
 	//Sequence  string `json:"sequence" validate:"required,gt=0"`
 }
 
-func SuccessData(data interface{}) *ResponseBean {
-	return &ResponseBean{
+func SuccessData(data interface{}) ResponseBean {
+	return ResponseBean{
 		200,
 		"success",
 		data,
 	}
 }
 
-func SuccessMsg(msg string) *ResponseBean {
-	return &ResponseBean{
+func SuccessMsg(msg string) ResponseBean {
+	return ResponseBean{
 		200,
 		msg,
 		"",
 	}
 }
 
-func FailedMsg(errMsg string) *ResponseBean {
-	return &ResponseBean{
+func FailedMsg(errMsg string) ResponseBean {
+	return ResponseBean{
 		400,
 		errMsg,
 		"",
 	}
 }
 
-func FailedData(errMsg string, data interface{}) *ResponseBean {
-	return &ResponseBean{
+func FailedData(errMsg string, data interface{}) ResponseBean {
+	return ResponseBean{
 		400,
 		errMsg,
 		data,
