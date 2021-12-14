@@ -18,4 +18,11 @@ func TestClient(t *testing.T) {
 		return
 	}
 	fmt.Printf("%+v", fabricClient.NetworkConfig)
+
+	cc, err := fabricClient.InstallCC("test35", "/usr/local/soft/fabric-test5/chaincode/newchaincode/test")
+	if err != nil {
+		t.Errorf("%s", err)
+		return
+	}
+	fmt.Println(cc)
 }
