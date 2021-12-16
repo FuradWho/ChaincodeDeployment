@@ -35,7 +35,7 @@ func init() {
 
 	multiWriter := io.MultiWriter(fsWriter, os.Stdout)
 	log.SetReportCaller(true)
-	log.SetFormatter(&log.JSONFormatter{})
+	log.SetFormatter(&log.TextFormatter{})
 	log.SetOutput(multiWriter)
 	log.SetLevel(log.InfoLevel)
 
