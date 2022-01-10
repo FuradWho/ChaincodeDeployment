@@ -9,7 +9,7 @@ import (
 )
 
 type Education struct {
-	ObjectType     string `json:"docType" validate:"required,gt=0"`
+	ObjectType     string `json:"docType" `
 	Name           string `json:"Name" validate:"required,gt=0"`           // 姓名
 	Gender         string `json:"Gender" validate:"required,gt=0"`         // 性别
 	Nation         string `json:"Nation" validate:"required,gt=0"`         // 民族

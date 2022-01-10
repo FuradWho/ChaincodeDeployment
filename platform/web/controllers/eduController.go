@@ -31,13 +31,12 @@ func (c *EduController) SaveEdu() models.ResponseBean {
 	log.Infoln(path)
 
 	eduInfo := services.Education{
-		ObjectType: c.Ctx.PostValueTrim("docType"),
-		Name:       c.Ctx.PostValueTrim("Name"),        // 姓名
-		Gender:     c.Ctx.PostValueTrim("Gender"),      // 性别
-		Nation:     c.Ctx.PostValueTrim("userNation"),  // 民族
-		EntityID:   c.Ctx.PostValueTrim("userIdCard"),  // 身份证号
-		Place:      c.Ctx.PostValueTrim("userAddress"), // 籍贯
-		BirthDay:   c.Ctx.PostValueTrim("BirthDay"),    // 出生日期
+		Name:     c.Ctx.PostValueTrim("Name"),        // 姓名
+		Gender:   c.Ctx.PostValueTrim("Gender"),      // 性别
+		Nation:   c.Ctx.PostValueTrim("userNation"),  // 民族
+		EntityID: c.Ctx.PostValueTrim("userIdCard"),  // 身份证号
+		Place:    c.Ctx.PostValueTrim("userAddress"), // 籍贯
+		BirthDay: c.Ctx.PostValueTrim("BirthDay"),    // 出生日期
 
 		EnrollDate:     c.Ctx.PostValueTrim("userEnterTime"),  // 入学日期
 		GraduationDate: c.Ctx.PostValueTrim("GraduationDate"), // 毕（结）业日期
@@ -61,8 +60,21 @@ func (c *EduController) SaveEdu() models.ResponseBean {
 	if err != nil {
 		log.Errorf("Failed to struct format error : %s", err)
 		return models.FailedMsg("Failed to struct format error")
-
 	}
+	//
+	//result, err := c.Service.FindEduInfoByEntityID(eduInfo.EntityID)
+	//if err != nil {
+	//	log.Errorf("Failed to service save edu info : %s", err)
+	//	return models.FailedMsg("Failed to service save edu info")
+	//}
+	//var oldEdu services.Education
+	//if err != nil {
+	//	log.Errorf("Failed to service save edu info : %s", err)
+	//	return models.FailedMsg("Failed to service save edu info")
+	//} else {
+	//	json.Unmarshal(result, &oldEdu)
+	//}
+
 	txId, err := c.Service.SaveEdu(eduInfo)
 	if err != nil {
 		log.Errorf("Failed to service save edu info : %s", err)
@@ -106,13 +118,13 @@ func (c *EduController) ModifyEdu() models.ResponseBean {
 	log.Infoln(path)
 
 	eduInfo := services.Education{
-		ObjectType: c.Ctx.PostValueTrim("docType"),
-		Name:       c.Ctx.PostValueTrim("Name"),        // 姓名
-		Gender:     c.Ctx.PostValueTrim("Gender"),      // 性别
-		Nation:     c.Ctx.PostValueTrim("userNation"),  // 民族
-		EntityID:   c.Ctx.PostValueTrim("userIdCard"),  // 身份证号
-		Place:      c.Ctx.PostValueTrim("userAddress"), // 籍贯
-		BirthDay:   c.Ctx.PostValueTrim("BirthDay"),    // 出生日期
+		//ObjectType: c.Ctx.PostValueTrim("docType"),
+		Name:     c.Ctx.PostValueTrim("Name"),        // 姓名
+		Gender:   c.Ctx.PostValueTrim("Gender"),      // 性别
+		Nation:   c.Ctx.PostValueTrim("userNation"),  // 民族
+		EntityID: c.Ctx.PostValueTrim("userIdCard"),  // 身份证号
+		Place:    c.Ctx.PostValueTrim("userAddress"), // 籍贯
+		BirthDay: c.Ctx.PostValueTrim("BirthDay"),    // 出生日期
 
 		EnrollDate:     c.Ctx.PostValueTrim("userEnterTime"),  // 入学日期
 		GraduationDate: c.Ctx.PostValueTrim("GraduationDate"), // 毕（结）业日期
