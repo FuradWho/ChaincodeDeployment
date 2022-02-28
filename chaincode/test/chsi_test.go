@@ -17,25 +17,29 @@ type SliceMock struct {
 
 func TestInvoke(t *testing.T) {
 
-	edu := &education.Education{
-		Name:           "张三",
-		Gender:         "男",
-		Nation:         "汉",
-		EntityID:       "101",
-		Place:          "北京",
-		BirthDay:       "1991年01月01日",
-		EnrollDate:     "2009年9月",
-		GraduationDate: "2013年7月",
-		SchoolName:     "中国政法大学",
-		Major:          "社会学",
-		QuaType:        "普通",
-		Length:         "四年",
-		Mode:           "普通全日制",
-		Level:          "本科",
-		Graduation:     "毕业",
-		CertNo:         "111",
-		Photo:          "/static/phone/11.png",
-	}
+	/*
+		edu := &education.Education{
+			Name:           "张三",
+			Gender:         "男",
+			Nation:         "汉",
+			EntityID:       "101",
+			Place:          "北京",
+			BirthDay:       "1991年01月01日",
+			EnrollDate:     "2009年9月",
+			GraduationDate: "2013年7月",
+			SchoolName:     "中国政法大学",
+			Major:          "社会学",
+			QuaType:        "普通",
+			Length:         "四年",
+			Mode:           "普通全日制",
+			Level:          "本科",
+			Graduation:     "毕业",
+			CertNo:         "111",
+			Photo:          "/static/phone/11.png",
+		}
+	*/
+
+	edu := &education.Education{}
 
 	b, err := json.Marshal(edu)
 	if err != nil {

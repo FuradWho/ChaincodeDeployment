@@ -22,7 +22,7 @@ import (
 const (
 	channelId        = "mychannel"
 	connectConfigDir = "/home/fabric/GolandProjects/ChaincodeDeployment/platform/configs/connect-config/sdk-connection-config.yaml"
-	chaincodeId      = "mycc_0"
+	chaincodeId      = "score_0"
 	chaincodePath    = "newchaincode/test"
 	ccVersion        = "0"
 	Admin            = "Admin"

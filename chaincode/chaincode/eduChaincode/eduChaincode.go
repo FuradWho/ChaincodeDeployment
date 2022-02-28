@@ -48,7 +48,7 @@ func PutEdu(stub shim.ChaincodeStubInterface, edu education.Education) ([]byte, 
 		return nil, false
 	}
 
-	err = stub.PutState(edu.EntityID, marshal)
+	err = stub.PutState(edu.UserID, marshal)
 	if err != nil {
 		return nil, false
 	}
@@ -124,7 +124,7 @@ func (e *EducationChaincode) addEdu(stub shim.ChaincodeStubInterface, args []str
 		return shim.Error("unmarshal has error!")
 	}
 
-	_, exist := GetEduInfo(stub, edu.EntityID)
+	_, exist := GetEduInfo(stub, edu.UserID)
 	if exist {
 		return shim.Error("entity has exist!")
 	}
@@ -192,7 +192,7 @@ func (e *EducationChaincode) queryEduInfoByEntityID(stub shim.ChaincodeStubInter
 	}
 
 	// 获取历史变更数据
-	iterator, err := stub.GetHistoryForKey(edu.EntityID)
+	iterator, err := stub.GetHistoryForKey(edu.UserID)
 	if err != nil {
 		return shim.Error("根据指定的身份证号码查询对应的历史变更数据失败")
 	}
@@ -249,21 +249,27 @@ func (e *EducationChaincode) updateEdu(stub shim.ChaincodeStubInterface, args []
 	}
 
 	// 根据身份证号码查询信息
-	result, bl := GetEduInfo(stub, info.EntityID)
+	result, bl := GetEduInfo(stub, info.UserID)
 	if !bl {
 		return shim.Error("根据身份证号码查询信息时发生错误")
 	}
 
-	result.EnrollDate = info.EnrollDate
-	result.GraduationDate = info.GraduationDate
-	result.SchoolName = info.SchoolName
-	result.Major = info.Major
-	result.QuaType = info.QuaType
-	result.Length = info.Length
-	result.Mode = info.Mode
-	result.Level = info.Level
-	result.Graduation = info.Graduation
-	result.CertNo = info.CertNo
+	result.Msg = info.Msg
+	result.ClassID = info.ClassID
+	result.SchoolID = info.SchoolID
+
+	/*
+		result.EnrollDate = info.EnrollDate
+		result.GraduationDate = info.GraduationDate
+		result.SchoolName = info.SchoolName
+		result.Major = info.Major
+		result.QuaType = info.QuaType
+		result.Length = info.Length
+		result.Mode = info.Mode
+		result.Level = info.Level
+		result.Graduation = info.Graduation
+		result.CertNo = info.CertNo
+	*/
 
 	_, bl = PutEdu(stub, result)
 	if !bl {

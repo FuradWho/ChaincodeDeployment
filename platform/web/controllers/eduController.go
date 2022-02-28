@@ -22,7 +22,7 @@ var validate = validator.New()
 func (c *EduController) GetTest() models.ResponseBean {
 	path := c.Ctx.Path()
 	log.Infoln(path)
-	return models.SuccessMsg("1111")
+	return models.SuccessMsg("test success")
 }
 
 func (c *EduController) SaveEdu() models.ResponseBean {
@@ -31,49 +31,65 @@ func (c *EduController) SaveEdu() models.ResponseBean {
 	log.Infoln(path)
 
 	eduInfo := services.Education{
-		Name:     c.Ctx.PostValueTrim("Name"),        // 姓名
-		Gender:   c.Ctx.PostValueTrim("Gender"),      // 性别
-		Nation:   c.Ctx.PostValueTrim("userNation"),  // 民族
-		EntityID: c.Ctx.PostValueTrim("userIdCard"),  // 身份证号
-		Place:    c.Ctx.PostValueTrim("userAddress"), // 籍贯
-		BirthDay: c.Ctx.PostValueTrim("BirthDay"),    // 出生日期
-
-		EnrollDate:     c.Ctx.PostValueTrim("userEnterTime"),  // 入学日期
-		GraduationDate: c.Ctx.PostValueTrim("GraduationDate"), // 毕（结）业日期
-		SchoolName:     c.Ctx.PostValueTrim("userSchool"),     // 学校名称
-		Major:          c.Ctx.PostValueTrim("userMajor"),      // 专业
-		QuaType:        c.Ctx.PostValueTrim("QuaType"),        // 学历类别
-		Length:         c.Ctx.PostValueTrim("Length"),         // 学制
-		Mode:           c.Ctx.PostValueTrim("Mode"),           // 学习形式
-		Level:          c.Ctx.PostValueTrim("Level"),          // 层次
-		Graduation:     c.Ctx.PostValueTrim("Graduation"),     // 毕（结）业
-		CertNo:         c.Ctx.PostValueTrim("CertNo"),         // 证书编号
+		UserID:   c.Ctx.PostValueTrim("user_id"),   // 姓名
+		Msg:      c.Ctx.PostValueTrim("msg"),       // 姓名
+		ClassID:  c.Ctx.PostValueTrim("class_id"),  // 姓名
+		SchoolID: c.Ctx.PostValueTrim("school_id"), // 姓名
 	}
 
-	//err := c.Ctx.ReadJSON(&eduInfo)
-	//if err != nil {
-	//	log.Errorf("Failed to json read to struct error : %s", err)
-	//	return models.FailedMsg("Failed to json read to struct error")
-	//}
+	fmt.Printf("%+v \n", eduInfo)
 
-	err := validate.Struct(eduInfo)
-	if err != nil {
-		log.Errorf("Failed to struct format error : %s", err)
-		return models.FailedMsg("Failed to struct format error")
-	}
-	//
-	//result, err := c.Service.FindEduInfoByEntityID(eduInfo.EntityID)
-	//if err != nil {
-	//	log.Errorf("Failed to service save edu info : %s", err)
-	//	return models.FailedMsg("Failed to service save edu info")
-	//}
-	//var oldEdu services.Education
-	//if err != nil {
-	//	log.Errorf("Failed to service save edu info : %s", err)
-	//	return models.FailedMsg("Failed to service save edu info")
-	//} else {
-	//	json.Unmarshal(result, &oldEdu)
-	//}
+	/*
+		eduInfo := services.Education{
+			Name:     c.Ctx.PostValueTrim("Name"),        // 姓名
+			Gender:   c.Ctx.PostValueTrim("Gender"),      // 性别
+			Nation:   c.Ctx.PostValueTrim("userNation"),  // 民族
+			EntityID: c.Ctx.PostValueTrim("userIdCard"),  // 身份证号
+			Place:    c.Ctx.PostValueTrim("userAddress"), // 籍贯
+			BirthDay: c.Ctx.PostValueTrim("BirthDay"),    // 出生日期
+
+			EnrollDate:     c.Ctx.PostValueTrim("userEnterTime"),  // 入学日期
+			GraduationDate: c.Ctx.PostValueTrim("GraduationDate"), // 毕（结）业日期
+			SchoolName:     c.Ctx.PostValueTrim("userSchool"),     // 学校名称
+			Major:          c.Ctx.PostValueTrim("userMajor"),      // 专业
+			QuaType:        c.Ctx.PostValueTrim("QuaType"),        // 学历类别
+			Length:         c.Ctx.PostValueTrim("Length"),         // 学制
+			Mode:           c.Ctx.PostValueTrim("Mode"),           // 学习形式
+			Level:          c.Ctx.PostValueTrim("Level"),          // 层次
+			Graduation:     c.Ctx.PostValueTrim("Graduation"),     // 毕（结）业
+			CertNo:         c.Ctx.PostValueTrim("CertNo"),         // 证书编号
+		}
+
+	*/
+
+	/*
+		err := c.Ctx.ReadJSON(&eduInfo)
+		if err != nil {
+			log.Errorf("Failed to json read to struct error : %s", err)
+			return models.FailedMsg("Failed to json read to struct error")
+		}
+
+		err := validate.Struct(eduInfo)
+		if err != nil {
+			log.Errorf("Failed to struct format error : %s", err)
+			return models.FailedMsg("Failed to struct format error")
+		}
+
+
+		result, err := c.Service.FindEduInfoByEntityID(eduInfo.EntityID)
+		if err != nil {
+			log.Errorf("Failed to service save edu info : %s", err)
+			return models.FailedMsg("Failed to service save edu info")
+		}
+		var oldEdu services.Education
+		if err != nil {
+			log.Errorf("Failed to service save edu info : %s", err)
+			return models.FailedMsg("Failed to service save edu info")
+		} else {
+			json.Unmarshal(result, &oldEdu)
+		}
+
+	*/
 
 	txId, err := c.Service.SaveEdu(eduInfo)
 	if err != nil {
@@ -118,25 +134,35 @@ func (c *EduController) ModifyEdu() models.ResponseBean {
 	log.Infoln(path)
 
 	eduInfo := services.Education{
-		//ObjectType: c.Ctx.PostValueTrim("docType"),
-		Name:     c.Ctx.PostValueTrim("Name"),        // 姓名
-		Gender:   c.Ctx.PostValueTrim("Gender"),      // 性别
-		Nation:   c.Ctx.PostValueTrim("userNation"),  // 民族
-		EntityID: c.Ctx.PostValueTrim("userIdCard"),  // 身份证号
-		Place:    c.Ctx.PostValueTrim("userAddress"), // 籍贯
-		BirthDay: c.Ctx.PostValueTrim("BirthDay"),    // 出生日期
-
-		EnrollDate:     c.Ctx.PostValueTrim("userEnterTime"),  // 入学日期
-		GraduationDate: c.Ctx.PostValueTrim("GraduationDate"), // 毕（结）业日期
-		SchoolName:     c.Ctx.PostValueTrim("userSchool"),     // 学校名称
-		Major:          c.Ctx.PostValueTrim("userMajor"),      // 专业
-		QuaType:        c.Ctx.PostValueTrim("QuaType"),        // 学历类别
-		Length:         c.Ctx.PostValueTrim("Length"),         // 学制
-		Mode:           c.Ctx.PostValueTrim("Mode"),           // 学习形式
-		Level:          c.Ctx.PostValueTrim("Level"),          // 层次
-		Graduation:     c.Ctx.PostValueTrim("Graduation"),     // 毕（结）业
-		CertNo:         c.Ctx.PostValueTrim("CertNo"),         // 证书编号
+		UserID:   c.Ctx.PostValueTrim("userID"),   // 姓名
+		Msg:      c.Ctx.PostValueTrim("msg"),      // 姓名
+		ClassID:  c.Ctx.PostValueTrim("classID"),  // 姓名
+		SchoolID: c.Ctx.PostValueTrim("schoolID"), // 姓名
 	}
+
+	/*
+		eduInfo := services.Education{
+			//ObjectType: c.Ctx.PostValueTrim("docType"),
+			Name:     c.Ctx.PostValueTrim("Name"),        // 姓名
+			Gender:   c.Ctx.PostValueTrim("Gender"),      // 性别
+			Nation:   c.Ctx.PostValueTrim("userNation"),  // 民族
+			EntityID: c.Ctx.PostValueTrim("userIdCard"),  // 身份证号
+			Place:    c.Ctx.PostValueTrim("userAddress"), // 籍贯
+			BirthDay: c.Ctx.PostValueTrim("BirthDay"),    // 出生日期
+
+			EnrollDate:     c.Ctx.PostValueTrim("userEnterTime"),  // 入学日期
+			GraduationDate: c.Ctx.PostValueTrim("GraduationDate"), // 毕（结）业日期
+			SchoolName:     c.Ctx.PostValueTrim("userSchool"),     // 学校名称
+			Major:          c.Ctx.PostValueTrim("userMajor"),      // 专业
+			QuaType:        c.Ctx.PostValueTrim("QuaType"),        // 学历类别
+			Length:         c.Ctx.PostValueTrim("Length"),         // 学制
+			Mode:           c.Ctx.PostValueTrim("Mode"),           // 学习形式
+			Level:          c.Ctx.PostValueTrim("Level"),          // 层次
+			Graduation:     c.Ctx.PostValueTrim("Graduation"),     // 毕（结）业
+			CertNo:         c.Ctx.PostValueTrim("CertNo"),         // 证书编号
+		}
+
+	*/
 
 	//err := c.Ctx.ReadJSON(&eduInfo)
 	//if err != nil {
@@ -144,12 +170,14 @@ func (c *EduController) ModifyEdu() models.ResponseBean {
 	//	return models.FailedMsg("Failed to json read to struct error")
 	//}
 
-	err := validate.Struct(eduInfo)
-	if err != nil {
-		log.Errorf("Failed to struct format error : %s", err)
-		return models.FailedMsg("Failed to struct format error")
+	//err := validate.Struct(eduInfo)
+	//if err != nil {
+	//	log.Errorf("Failed to struct format error : %s", err)
+	//	return models.FailedMsg("Failed to struct format error")
+	//
+	//}
 
-	}
+	fmt.Printf("%+v \n", eduInfo)
 
 	txId, err := c.Service.ModifyEdu(eduInfo)
 	if err != nil {
@@ -215,6 +243,11 @@ func (c *EduController) BeforeActivation(b mvc.BeforeActivation) {
 		"GET",
 		"/find_by_entityID/{entityID:string}",
 		"FindEduInfoByEntityID",
+	)
+	b.Handle(
+		"GET",
+		"/test",
+		"GetTest",
 	)
 
 }

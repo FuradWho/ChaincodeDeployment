@@ -24,7 +24,7 @@ import (
 // @license.url https://hyperledger-fabric.readthedocs.io/zh_CN/release-2.2/who_we_are.html
 
 // StartIris
-// @host localhost:9089
+// @host localhost:9099
 // @BasePath /
 func StartIris() {
 	app := iris.New()
@@ -64,7 +64,7 @@ func edu(app *mvc.Application) {
 	}
 
 	serviceSetup := services.ServiceSetup{
-		ChaincodeID: "chsi_0",
+		ChaincodeID: "score_0",
 		Client:      fabricClient.ChannelClient,
 	}
 
