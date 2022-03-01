@@ -8,7 +8,6 @@ require (
 	github.com/hyperledger/fabric-sdk-go v1.0.0
 	github.com/iris-contrib/swagger/v12 v12.0.1
 	github.com/kataras/iris/v12 v12.1.8
-	github.com/kataras/rizla v0.1.1
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/sirupsen/logrus v1.8.1
 	github.com/swaggo/swag v1.7.4
